@@ -1,0 +1,177 @@
+# School to Professor Agent Mapping
+# Maps each school directory to its specialized professor agent
+
+schools:
+  # Core Engineering Schools
+  "01_First_Principles":
+    professor: "first_principles_professor"
+    description: "Foundational thinking and first principles reasoning"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "02_Electronics":
+    professor: "electronics_professor"
+    description: "Electronic circuits, components, and systems"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "03_Embedded_Systems":
+    professor: "embedded_systems_professor"
+    description: "Embedded computing, microcontrollers, IoT"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "04-Computer_Engineering":
+    professor: "computer_engineering_professor"
+    description: "Computer architecture, hardware-software integration"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "05_Networking":
+    professor: "networking_professor"
+    description: "Network protocols, infrastructure, security"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "06_Cloud_Engineering":
+    professor: "cloud_engineering_professor"
+    description: "Cloud platforms, distributed systems, scalability"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "07_SE":
+    professor: "software_engineering_professor"
+    description: "Software development, architecture, best practices"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "08_Databases":
+    professor: "database_professor"
+    description: "Database systems, data modeling, optimization"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "09_Data_Engineering":
+    professor: "data_engineering_professor"
+    description: "Data pipelines, ETL, big data systems"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  # Advanced Technology Schools
+  "010_AI":
+    professor: "ai_ml_professor"
+    description: "Artificial Intelligence, Machine Learning, Deep Learning"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "011_Robotics_and_Automation":
+    professor: "robotics_professor"
+    description: "Robotics, automation, control systems"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "012_Cybersecurity":
+    professor: "cybersecurity_professor"
+    description: "Security engineering, threat analysis, defense"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "013_Devops_Platforms_Engineering_SRE":
+    professor: "devops_sre_professor"
+    description: "DevOps, SRE, platform engineering"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  # Industry-Focused Schools
+  "014_Supply_Chain":
+    professor: "supply_chain_professor"
+    description: "Supply chain management, logistics, optimization"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "015_System_Engineering":
+    professor: "systems_engineering_professor"
+    description: "Systems engineering, integration, lifecycle"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "016_School_of_Industrial_Intelligence_Autonomous_Systems_Engineering":
+    professor: "industrial_intelligence_professor"
+    description: "Industrial AI, autonomous systems, smart manufacturing"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "017_Biomedical_Pharmaceutical_Knowledge":
+    professor: "biomedical_professor"
+    description: "Biomedical engineering, pharmaceutical sciences"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "017_Regulatory_Science":
+    professor: "regulatory_science_professor"
+    description: "Regulatory affairs, compliance, quality systems"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  # Business & Innovation Schools
+  "018_Research":
+    professor: "research_professor"
+    description: "Research methodology, scientific writing"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "019_Product Design":
+    professor: "product_design_professor"
+    description: "Product design, UX, user research"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "020_Business":
+    professor: "business_professor"
+    description: "Business strategy, operations, management"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "021_Innovation":
+    professor: "innovation_professor"
+    description: "Innovation management, creativity, disruption"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "022_Leadership":
+    professor: "leadership_professor"
+    description: "Leadership, team management, organizational behavior"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "023_Entrepreneurship":
+    professor: "entrepreneurship_professor"
+    description: "Startup creation, venture building, fundraising"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "024_Global_Standards":
+    professor: "standards_professor"
+    description: "International standards, compliance, certifications"
+    levels: ["L1", "L2", "L3", "L4"]
+    
+  "025_Industry_Domains":
+    professor: "industry_domains_professor"
+    description: "Industry-specific knowledge and applications"
+    levels: ["L1", "L2", "L3", "L4"]
+
+# Cross-school collaborations
+collaborations:
+  ai_robotics:
+    professors: ["ai_ml_professor", "robotics_professor"]
+    topics: ["autonomous systems", "computer vision", "reinforcement learning"]
+    
+  cybersecurity_compliance:
+    professors: ["cybersecurity_professor", "regulatory_science_professor"]
+    topics: ["security compliance", "data protection", "auditing"]
+    
+  biomedical_regulatory:
+    professors: ["biomedical_professor", "regulatory_science_professor"]
+    topics: ["medical device approval", "clinical trials", "FDA compliance"]
+    
+  devops_cloud:
+    professors: ["devops_sre_professor", "cloud_engineering_professor"]
+    topics: ["cloud infrastructure", "CI/CD", "scalability"]
+
+# Learning level definitions
+levels:
+  L1:
+    name: "Foundational"
+    description: "Basic concepts and terminology"
+    bloom_taxonomy: ["Remember", "Understand"]
+    
+  L2:
+    name: "Intermediate"
+    description: "Application and analysis"
+    bloom_taxonomy: ["Apply", "Analyze"]
+    
+  L3:
+    name: "Advanced"
+    description: "Synthesis and evaluation"
+    bloom_taxonomy: ["Evaluate", "Create"]
+    
+  L4:
+    name: "Expert"
+    description: "Mastery and innovation"
+    bloom_taxonomy: ["Create", "Innovate"]

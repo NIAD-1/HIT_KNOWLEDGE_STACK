@@ -1,0 +1,482 @@
+[
+  {
+    "content": "---\ntype: semester\nstatus: active\nsemester: 2026-Q3\ntags:\n  - lms\n  - semester\n---\n\n# Current Semester\n\nUse this page as the daily cockpit. Keep it short and alive.\n\n## Theme\n\nBuild the foundation for a personal LMS that turns the HIT Knowledge Stack into usable capability.\n\n## Active Tracks",
+    "source_file": "/workspace/000_LMS/Current Semester.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 0,
+    "metadata": {
+      "paragraph_count": 18
+    }
+  },
+  {
+    "content": "ge Stack into usable capability.\n\n## Active Tracks\n\n| Track | Purpose | Status | Next Action |\n|---|---|---|---|\n| Regulatory intelligence | Main domain anchor | queued | Choose 3 learning units from [[017_Regulatory_Science]] |\n| Software engineering | Build the LMS product layer | queued | Start with [[07_SE/Module_7_Frontend_Engineering/Modern_Frontend/NextJS/Learning]] |\n| Databases and RAG | Make the vault searchable and AI-ready | queued | Start with [[08_Databases/Module_13_Vector_Databases_and_AI_Ready_Data_Systems/RAG_Architecture/Generation/Learning]] |\n| First principles | Strengthen reasoning | queued | Pick one topic from [[01_First_Principles/SoS-School]] |",
+    "source_file": "/workspace/000_LMS/Current Semester.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 1,
+    "metadata": {
+      "paragraph_count": 10
+    }
+  },
+  {
+    "content": "ne topic from [[01_First_Principles/SoS-School]] |\n\n## This Week\n\n| Unit | Type | Status | Evidence |\n|---|---|---|---|\n| Personal LMS design | System design | active | This `000_LMS` layer |\n| Obsidian integration | Workflow | active | [[000_LMS/Obsidian Integration]] |\n| Course catalog | Navigation | active | [[000_LMS/Course Catalog]] |\n\n## Daily Log\n\n### 2026-08-11",
+    "source_file": "/workspace/000_LMS/Current Semester.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 2,
+    "metadata": {
+      "paragraph_count": 13
+    }
+  },
+  {
+    "content": "S/Course Catalog]] |\n\n## Daily Log\n\n### 2026-08-11\n\n- Created the first LMS control layer.\n- Identified the existing vault pattern: `Research.md`, `Learning.md`, `Assignment.md`.\n- Chose Obsidian-first architecture.\n\n## Review Queue\n\n- [ ] Decide the first 12-week learning path.\n- [ ] Add frontmatter to 10 priority learning units.\n- [ ] Create one project that proves the LMS idea.\n- [ ] Decide whether to build a web app, keep it Obsidian-only, or do both.\n\n## Completion Rule",
+    "source_file": "/workspace/000_LMS/Current Semester.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 3,
+    "metadata": {
+      "paragraph_count": 18
+    }
+  },
+  {
+    "content": "it Obsidian-only, or do both.\n\n## Completion Rule\n\nA unit is complete only when it has evidence:\n\n- Notes in your own words\n- A solved assignment\n- A project, diagram, model, dataset, implementation, or product thesis\n- A short reflection on what changed",
+    "source_file": "/workspace/000_LMS/Current Semester.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 4,
+    "metadata": {
+      "paragraph_count": 11
+    }
+  },
+  {
+    "content": "---\ntype: course-catalog\nstatus: draft\ntags:\n  - lms\n  - catalog\n---\n\n# Course Catalog\n\nThis catalog points to the major schools already inside the vault. It is intentionally lightweight: the folders remain the source of truth.\n\n## Foundations\n\n- [[01_First_Principles/SoS-School|School of Science]]\n- [[02_Electronics/Electronics-School|Electronics School]]\n- [[03_Embedded_Systems/ESE-School|Embedded Systems School]]\n- [[04-Computer_Engineering|Computer Engineering]]",
+    "source_file": "/workspace/000_LMS/Course Catalog.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 0,
+    "metadata": {
+      "paragraph_count": 18
+    }
+  },
+  {
+    "content": "- [[04-Computer_Engineering|Computer Engineering]]\n\n## Software, Data, AI, and Infrastructure\n\n- [[05_Networking|Networking]]\n- [[06_Cloud_Engineering|Cloud Engineering]]\n- [[07_SE|Software Engineering]]\n- [[08_Databases|Databases]]\n- [[09_Data_Engineering|Data Engineering]]\n- [[010_AI|AI Engineering and Machine Learning]]\n- [[011_Robotics_and_Automation|Robotics and Automation]]\n- [[012_Cybersecurity|Cybersecurity]]\n- [[013_Devops_Platforms_Engineering_SRE|DevOps, Platform Engineering, and SRE]]",
+    "source_file": "/workspace/000_LMS/Course Catalog.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 1,
+    "metadata": {
+      "paragraph_count": 13
+    }
+  },
+  {
+    "content": "eering_SRE|DevOps, Platform Engineering, and SRE]]\n\n## Systems, Industry, and Regulation",
+    "source_file": "/workspace/000_LMS/Course Catalog.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 2,
+    "metadata": {
+      "paragraph_count": 3
+    }
+  },
+  {
+    "content": "g, and SRE]]\n\n## Systems, Industry, and Regulation\n\n- [[014_Supply_Chain|Supply Chain]]\n- [[015_System_Engineering|Systems Engineering]]\n- [[016_School_of_Industrial_Intelligence_Autonomous_Systems_Engineering|Industrial Intelligence and Autonomous Systems]]\n- [[017_Biomedical_Pharmaceutical_Knowledge|Biomedical and Pharmaceutical Knowledge]]\n- [[017_Regulatory_Science|Regulatory Science]]\n- [[024_Global_Standards|Global Standards]]\n- [[025_Industry_Domains|Industry Domains]]",
+    "source_file": "/workspace/000_LMS/Course Catalog.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 3,
+    "metadata": {
+      "paragraph_count": 11
+    }
+  },
+  {
+    "content": "ards]]\n- [[025_Industry_Domains|Industry Domains]]\n\n## Research, Product, Business, and Leadership\n\n- [[018_Research|Research]]\n- [[019_Product Design|Product Design]]\n- [[020_Business|Business]]\n- [[021_Innovation|Innovation]]\n- [[022_Leadership|Leadership]]\n- [[023_Entrepreneurship|Entrepreneurship]]\n\n## Suggested First Personal LMS Path\n\nThis is a practical path because it connects domain knowledge, software building, data systems, and founder thinking.",
+    "source_file": "/workspace/000_LMS/Course Catalog.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 4,
+    "metadata": {
+      "paragraph_count": 15
+    }
+  },
+  {
+    "content": "ware building, data systems, and founder thinking.\n\n| Week | Focus | Output |\n|---|---|---|\n| 1 | Personal LMS architecture | Obsidian dashboard and progress model |\n| 2 | Next.js basics | Local prototype for browsing learning units |\n| 3 | Markdown parsing | Script that indexes courses and topics |\n| 4 | Database design | Schema for progress, units, projects, reviews |\n| 5 | Search | Full-text search across vault notes |\n| 6 | RAG fundamentals | AI tutor over selected notes |\n| 7 | Regulatory science path | Curated regulatory-intelligence track |\n| 8 | Assignment engine | Turn `Assignment.md` into proof-of-work tasks |\n| 9 | Review system | Weekly review and spaced repetition |\n| 10 | Product layer | Founder-thinking and POEM templates |\n| 11 | Capstone | Build a small local LMS prototype |\n| 12 | Reflection | Decide whether to expand, simplify, or productize |",
+    "source_file": "/workspace/000_LMS/Course Catalog.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 5,
+    "metadata": {
+      "paragraph_count": 17
+    }
+  },
+  {
+    "content": "---\ntype: integration\nstatus: draft\ntags:\n  - lms\n  - obsidian\n---\n\n# Obsidian Integration\n\nThe LMS should be linked to Obsidian by making Obsidian the canonical learning environment.\n\n## What Is Already Connected\n\n- The vault is already an Obsidian vault because `.obsidian` exists.\n- Core plugins include Properties, Templates, Daily Notes, Bookmarks, Canvas, Graph, Backlinks, Search, and Bases.\n- Internal links are configured to update automatically.\n\n## Recommended Obsidian Setup",
+    "source_file": "/workspace/000_LMS/Obsidian Integration.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 0,
+    "metadata": {
+      "paragraph_count": 19
+    }
+  },
+  {
+    "content": "date automatically.\n\n## Recommended Obsidian Setup\n\n1. Keep `000_LMS` at the top of the vault.\n2. Set [[000_LMS/LMS Home|LMS Home]] as the default starting page or bookmark it.\n3. Use [[000_LMS/Current Semester|Current Semester]] daily.\n4. Use templates in [[000_LMS/Templates]] for new LMS notes.\n5. Add frontmatter only to the units you actively study first.\n\n## Suggested Tags",
+    "source_file": "/workspace/000_LMS/Obsidian Integration.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 1,
+    "metadata": {
+      "paragraph_count": 11
+    }
+  },
+  {
+    "content": "units you actively study first.\n\n## Suggested Tags\n\n- `#lms`\n- `#lms/unit`\n- `#lms/project`\n- `#lms/review`\n- `#status/backlog`\n- `#status/queued`\n- `#status/active`\n- `#status/review`\n- `#status/complete`\n\n## Deep Link Pattern\n\nObsidian can open vault notes through links like:\n\n```text\nobsidian://open?vault=HIT_Knowledge_Stack&file=000_LMS%2FLMS%20Home\n```\n\nA future LMS app can use this pattern to jump from the app into Obsidian.\n\n## App Architecture Later",
+    "source_file": "/workspace/000_LMS/Obsidian Integration.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 2,
+    "metadata": {
+      "paragraph_count": 25
+    }
+  },
+  {
+    "content": "the app into Obsidian.\n\n## App Architecture Later\n\nIf you build a custom app, use this split:\n\n| Layer | Responsibility |\n|---|---|\n| Obsidian vault | Content, notes, links, reflections |\n| Markdown indexer | Scans folders and extracts metadata |\n| Local database | Progress, reviews, scheduling, analytics |\n| Web UI | Dashboard, search, current lesson, assignments |\n| AI assistant | Tutor, quiz maker, curriculum planner, reviewer |\n\n## Minimum Useful Product",
+    "source_file": "/workspace/000_LMS/Obsidian Integration.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 3,
+    "metadata": {
+      "paragraph_count": 15
+    }
+  },
+  {
+    "content": "lum planner, reviewer |\n\n## Minimum Useful Product\n\nThe first useful version does not need authentication, payments, certificates, or complex admin tools.\n\nIt needs:\n\n- Course browser\n- Current semester page\n- Learning unit view\n- Progress status\n- Assignment evidence\n- Review queue\n- Obsidian open-link button\n- Search\n\n## Data Rule\n\nWhen in doubt, write back to markdown. Your notes should remain useful even if the custom LMS app disappears.",
+    "source_file": "/workspace/000_LMS/Obsidian Integration.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 4,
+    "metadata": {
+      "paragraph_count": 21
+    }
+  },
+  {
+    "content": "---\ntype: lms-system\nstatus: draft\ntags:\n  - lms\n  - learning-system\n---\n\n# Learning Operating System\n\nThe goal is not to copy a school LMS. The goal is to build a personal founder-engineer university around your own knowledge stack.\n\n## Design Principles",
+    "source_file": "/workspace/000_LMS/Learning Operating System.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 0,
+    "metadata": {
+      "paragraph_count": 13
+    }
+  },
+  {
+    "content": "nd your own knowledge stack.\n\n## Design Principles\n\n1. Obsidian remains the source of truth.\n2. Notes stay readable as plain markdown.\n3. Each topic must produce evidence, not just reading.\n4. Progress is tracked lightly but consistently.\n5. Learning should compound across science, engineering, regulation, business, and product thinking.\n\n## Core Objects",
+    "source_file": "/workspace/000_LMS/Learning Operating System.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 1,
+    "metadata": {
+      "paragraph_count": 11
+    }
+  },
+  {
+    "content": ", business, and product thinking.\n\n## Core Objects\n\n| Object | Meaning | Existing Form |\n|---|---|---|\n| School | A major knowledge domain | Top-level folders like `017_Regulatory_Science` |\n| Module | A course-sized block | `Module 01 - ...` folders |\n| Chapter | A cluster of related topics | `Chapter ...` folders |\n| Learning Unit | One topic to study and prove | Topic folder containing `Research.md`, `Learning.md`, `Assignment.md` |\n| Project | A larger proof of capability | `Projects` and capstone folders |\n| Reflection | What changed in your thinking | Weekly review or learning log |",
+    "source_file": "/workspace/000_LMS/Learning Operating System.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 2,
+    "metadata": {
+      "paragraph_count": 12
+    }
+  },
+  {
+    "content": "in your thinking | Weekly review or learning log |\n\n## Standard Statuses\n\nUse these consistently in notes and dashboards:\n\n- `backlog`: worth studying later\n- `queued`: selected for the current semester\n- `active`: currently studying\n- `blocked`: needs prerequisite, source, or decision\n- `review`: completed once and needs review\n- `complete`: proof exists\n- `archived`: no longer relevant\n\n## Learning Unit Metadata\n\nAdd this frontmatter to important learning units over time:",
+    "source_file": "/workspace/000_LMS/Learning Operating System.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 3,
+    "metadata": {
+      "paragraph_count": 17
+    }
+  },
+  {
+    "content": "frontmatter to important learning units over time:\n\n```yaml\ntype: learning-unit\nstatus: queued\nschool:\nmodule:\ntopic:\nlevel: 1\npriority: medium\nstarted:\ncompleted:\nevidence:\nnext_action:\ntags:\n  - lms/unit\n```\n\n## Assessment Rubric",
+    "source_file": "/workspace/000_LMS/Learning Operating System.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 4,
+    "metadata": {
+      "paragraph_count": 19
+    }
+  },
+  {
+    "content": "tion:\ntags:\n  - lms/unit\n```\n\n## Assessment Rubric\n\n| Score | Meaning |\n|---|---|\n| 0 | I recognize the term but cannot explain it. |\n| 1 | I can explain the idea simply. |\n| 2 | I can solve guided problems or follow an implementation. |\n| 3 | I can build with it without step-by-step help. |\n| 4 | I can teach it, critique trade-offs, and connect it to other domains. |\n| 5 | I can create original work, research questions, or product strategy from it. |\n\n## Weekly Review\n\nEach week, answer:",
+    "source_file": "/workspace/000_LMS/Learning Operating System.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 5,
+    "metadata": {
+      "paragraph_count": 19
+    }
+  },
+  {
+    "content": "y from it. |\n\n## Weekly Review\n\nEach week, answer:\n\n1. What did I finish?\n2. What evidence did I produce?\n3. What did I misunderstand?\n4. What deserves review?\n5. What should I study next?\n6. What could become a product, platform, paper, or business?\n\n## Obsidian Link Strategy\n\nUse normal wiki links for durable connections:",
+    "source_file": "/workspace/000_LMS/Learning Operating System.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 6,
+    "metadata": {
+      "paragraph_count": 16
+    }
+  },
+  {
+    "content": "gy\n\nUse normal wiki links for durable connections:\n\n- Link school pages from the LMS dashboard.\n- Link active learning units from the semester note.\n- Link assignments to projects.\n- Link open questions to research notes.\n- Link product ideas to business, entrepreneurship, and industry-domain notes.\n\n## Future App Strategy\n\nIf this becomes a custom LMS app, it should treat this vault as a content repository:",
+    "source_file": "/workspace/000_LMS/Learning Operating System.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 7,
+    "metadata": {
+      "paragraph_count": 13
+    }
+  },
+  {
+    "content": "t should treat this vault as a content repository:\n\n- Read markdown files from the vault.\n- Parse frontmatter for status and progress.\n- Preserve Obsidian links.\n- Write progress updates back as markdown.\n- Avoid locking the learning system inside app-only data.",
+    "source_file": "/workspace/000_LMS/Learning Operating System.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 8,
+    "metadata": {
+      "paragraph_count": 8
+    }
+  },
+  {
+    "content": "---\ntype: lms-home\nstatus: active\ntags:\n  - lms\n  - dashboard\n  - obsidian\n---\n\n# Personal LMS\n\nThis is the control layer for the HIT Knowledge Stack. The vault already contains the curriculum; this folder turns it into a personal learning management system.\n\n## Start Here",
+    "source_file": "/workspace/000_LMS/LMS Home.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 0,
+    "metadata": {
+      "paragraph_count": 14
+    }
+  },
+  {
+    "content": "ersonal learning management system.\n\n## Start Here\n\n- [[000_LMS/Learning Operating System|Learning Operating System]]\n- [[000_LMS/Current Semester|Current Semester]]\n- [[000_LMS/Course Catalog|Course Catalog]]\n- [[000_LMS/Obsidian Integration|Obsidian Integration]]\n- [[000_LMS/Company/HIT Company Vision|HIT Company Vision]]\n\n## Mission Control",
+    "source_file": "/workspace/000_LMS/LMS Home.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 1,
+    "metadata": {
+      "paragraph_count": 11
+    }
+  },
+  {
+    "content": "ny Vision|HIT Company Vision]]\n\n## Mission Control\n\n- [[000_LMS/Missions/Smart Pharma Cold Chain Logger Mission]]\n- [[000_LMS/Missions/Industrial Edge Gateway Mission]]\n- [[000_LMS/Missions/Food Safety Monitoring Device Mission]]\n- [[000_LMS/Missions/AI Regulatory Assistant Mission]]\n- [[000_LMS/Missions/Warehouse Environmental Monitoring Mission]]\n- [[000_LMS/Missions/National Drug Registration Platform Mission]]\n\n## What This LMS Should Do",
+    "source_file": "/workspace/000_LMS/LMS Home.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 2,
+    "metadata": {
+      "paragraph_count": 12
+    }
+  },
+  {
+    "content": "ion Platform Mission]]\n\n## What This LMS Should Do\n\n1. Help you decide what to study next.\n2. Track progress without making the vault heavy.\n3. Connect learning to projects, products, research, and founder thinking.\n4. Keep Obsidian as the source of truth.\n5. Let a future app read the same markdown files instead of trapping your knowledge in a database.\n\n## Learning Loop\n\nEvery topic should move through this loop:",
+    "source_file": "/workspace/000_LMS/LMS Home.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 3,
+    "metadata": {
+      "paragraph_count": 13
+    }
+  },
+  {
+    "content": "g Loop\n\nEvery topic should move through this loop:\n\n1. Research: collect the important ideas, sources, standards, papers, examples, and open questions.\n2. Learn: explain the concept in your own words and connect it to what you already know.\n3. Build: complete an assignment, project, simulation, dataset, product sketch, or system design.\n4. Reflect: decide what changed in your understanding and what to learn next.\n5. Apply: connect the topic to a company, platform, regulatory system, industrial system, or personal capability.",
+    "source_file": "/workspace/000_LMS/LMS Home.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 4,
+    "metadata": {
+      "paragraph_count": 9
+    }
+  },
+  {
+    "content": "system, industrial system, or personal capability.\n\n## Current Focus\n\n- Primary school: [[017_Regulatory_Science]]\n- Technical backbone: [[07_SE]], [[08_Databases]], [[09_Data_Engineering]], [[010_AI]]\n- Systems foundation: [[01_First_Principles/SoS-School]]\n- Industry anchor: [[017_Biomedical_Pharmaceutical_Knowledge]], [[025_Industry_Domains]]\n\n## Personal LMS Levels",
+    "source_file": "/workspace/000_LMS/LMS Home.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 5,
+    "metadata": {
+      "paragraph_count": 10
+    }
+  },
+  {
+    "content": ", [[025_Industry_Domains]]\n\n## Personal LMS Levels\n\n| Level | Name | Proof |\n|---|---|---|\n| 1 | Understand | Clear notes, definitions, diagrams, examples |\n| 2 | Engineer | Working implementation, model, analysis, or design |\n| 3 | Research | Papers, standards, evidence, unresolved questions |\n| 4 | Founder Thinking | Problem, market, buyer, moat, product thesis |\n\n## Daily Use",
+    "source_file": "/workspace/000_LMS/LMS Home.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 6,
+    "metadata": {
+      "paragraph_count": 12
+    }
+  },
+  {
+    "content": "arket, buyer, moat, product thesis |\n\n## Daily Use\n\n1. Open [[000_LMS/Current Semester|Current Semester]].\n2. Pick one active learning unit.\n3. Read or write in its `Research.md`, `Learning.md`, or `Assignment.md`.\n4. Update status, evidence, and next action.\n5. End with one short reflection.\n\n## Build Later\n\nThe markdown layer should come first. A future web app can then read this vault and add:",
+    "source_file": "/workspace/000_LMS/LMS Home.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 7,
+    "metadata": {
+      "paragraph_count": 13
+    }
+  },
+  {
+    "content": "A future web app can then read this vault and add:\n\n- Progress analytics\n- Spaced repetition\n- Search and AI tutoring\n- Project review\n- Skill maps\n- Calendar planning\n- Obsidian deep links",
+    "source_file": "/workspace/000_LMS/LMS Home.md",
+    "school_id": "000_LMS",
+    "module_id": "root",
+    "chunk_index": 8,
+    "metadata": {
+      "paragraph_count": 10
+    }
+  },
+  {
+    "content": "- ECG signal analysis\n- Sensor noise filtering\n- Vibration analysis",
+    "source_file": "/workspace/02_Electronics/Module 9- Signal processing/Projects.md",
+    "school_id": "02_Electronics",
+    "module_id": "Module 9- Signal processing",
+    "chunk_index": 0,
+    "metadata": {
+      "paragraph_count": 3
+    }
+  },
+  {
+    "content": "- Analog signals\n- Digital signals\n- Sampling\n- Nyquist theorem\n- Quantization\n- ADC\n- DAC\n- Noise\n- Signal conditioning\n- Filtering\n- FFT (Fast Fourier Transform)",
+    "source_file": "/workspace/02_Electronics/Module 9- Signal processing/Signal Processing.md",
+    "school_id": "02_Electronics",
+    "module_id": "Module 9- Signal processing",
+    "chunk_index": 0,
+    "metadata": {
+      "paragraph_count": 11
+    }
+  },
+  {
+    "content": "- Solar charger\n- Portable power station\n- LiFePO₄ battery pack",
+    "source_file": "/workspace/02_Electronics/Module 7- Power Electronics/Projects.md",
+    "school_id": "02_Electronics",
+    "module_id": "Module 7- Power Electronics",
+    "chunk_index": 0,
+    "metadata": {
+      "paragraph_count": 3
+    }
+  },
+  {
+    "content": "- AC Power\n- DC Power\n- Rectifiers\n- Inverters\n- Buck converters\n- Boost converters\n- Buck-Boost converters\n- Linear regulators\n- Switching regulators\n- Battery charging\n- Solar power systems\n- UPS systems\n- Battery Management Systems (BMS)",
+    "source_file": "/workspace/02_Electronics/Module 7- Power Electronics/Power Electronics.md",
+    "school_id": "02_Electronics",
+    "module_id": "Module 7- Power Electronics",
+    "chunk_index": 0,
+    "metadata": {
+      "paragraph_count": 13
+    }
+  },
+  {
+    "content": "- Node analysis\n- Mesh analysis\n- Superposition\n- Thevenin theorem\n- Norton theorem\n- Maximum power transfer",
+    "source_file": "/workspace/02_Electronics/Module 1 - Electrical Foundations/Chapter 1.4 – Circuit Analysis.md",
+    "school_id": "02_Electronics",
+    "module_id": "Module 1 - Electrical Foundations",
+    "chunk_index": 0,
+    "metadata": {
+      "paragraph_count": 7
+    }
+  },
+  {
+    "content": "- Electric charge (Coulomb)\n- Current\n- Voltage\n- Resistance\n- Power\n- Energy\n- Frequency\n- Period\n- Capacitance\n- Inductance\n- Impedance\n- Reactance",
+    "source_file": "/workspace/02_Electronics/Module 1 - Electrical Foundations/Chapter 1.2 - Electrical Quantities.md",
+    "school_id": "02_Electronics",
+    "module_id": "Module 1 - Electrical Foundations",
+    "chunk_index": 0,
+    "metadata": {
+      "paragraph_count": 12
+    }
+  },
+  {
+    "content": "- Analyze household circuits\n- Design LED circuits\n- Build voltage divider experiments",
+    "source_file": "/workspace/02_Electronics/Module 1 - Electrical Foundations/PROJECTS.md",
+    "school_id": "02_Electronics",
+    "module_id": "Module 1 - Electrical Foundations",
+    "chunk_index": 0,
+    "metadata": {
+      "paragraph_count": 3
+    }
+  },
+  {
+    "content": "- Ohm's Law\n- Power Law\n- Kirchhoff's Current Law (KCL)\n- Kirchhoff's Voltage Law (KVL)\n- Series circuits\n- Parallel circuits\n- Combination circuits\n- Voltage divider\n- Current divider",
+    "source_file": "/workspace/02_Electronics/Module 1 - Electrical Foundations/Chapter 1.3 – Ohm's Law.md",
+    "school_id": "02_Electronics",
+    "module_id": "Module 1 - Electrical Foundations",
+    "chunk_index": 0,
+    "metadata": {
+      "paragraph_count": 9
+    }
+  },
+  {
+    "content": "- Structure of the atom\n- Electrons\n- Protons\n- Neutrons\n- Valence electrons\n- Conductors\n- Insulators\n- Semiconductors\n- Charge movement\n- Electric fields",
+    "source_file": "/workspace/02_Electronics/Module 1 - Electrical Foundations/Chapter 1.1 - Atomic Theory.md",
+    "school_id": "02_Electronics",
+    "module_id": "Module 1 - Electrical Foundations",
+    "chunk_index": 0,
+    "metadata": {
+      "paragraph_count": 11
+    }
+  },
+  {
+    "content": "- A complete **ESP32-based environmental monitoring device**.\n- A **cold-chain temperature logger** for pharmaceuticals.\n- A **GPS and sensor tracker** for medicine transport.\n- A **battery-powered LoRaWAN sensor node**.\n- A **smart warehouse monitoring system**.\n- Your own **custom PCB** instead of relying on development boards.\n- A reliable hardware prototype suitable for field testing.",
+    "source_file": "/workspace/02_Electronics/Capstone Projects/Projects.md",
+    "school_id": "02_Electronics",
+    "module_id": "Capstone Projects",
+    "chunk_index": 0,
+    "metadata": {
+      "paragraph_count": 7
+    }
+  },
+  {
+    "content": "- CMOS\n- CCD\n- Machine vision\n-",
+    "source_file": "/workspace/02_Electronics/Module 8- Sensors & Instrumentation/Cameras.md",
+    "school_id": "02_Electronics",
+    "module_id": "Module 8- Sensors & Instrumentation",
+    "chunk_index": 0,
+    "metadata": {
+      "paragraph_count": 4
+    }
+  },
+  {
+    "content": "- Smart warehouse monitor\n- Cold-chain logger\n- Smart electricity meter\n- Drug transport tracker",
+    "source_file": "/workspace/02_Electronics/Module 8- Sensors & Instrumentation/Projects.md",
+    "school_id": "02_Electronics",
+    "module_id": "Module 8- Sensors & Instrumentation",
+    "chunk_index": 0,
+    "metadata": {
+      "paragraph_count": 4
+    }
+  },
+  {
+    "content": "- Thermistors\n- RTDs\n- Thermocouples\n- Digital sensors",
+    "source_file": "/workspace/02_Electronics/Module 8- Sensors & Instrumentation/Temperature Sensors.md",
+    "school_id": "02_Electronics",
+    "module_id": "Module 8- Sensors & Instrumentation",
+    "chunk_index": 0,
+    "metadata": {
+      "paragraph_count": 4
+    }
+  },
+  {
+    "content": "- Piezoelectric\n- MEMS\n- Strain gauges",
+    "source_file": "/workspace/02_Electronics/Module 8- Sensors & Instrumentation/Pressure Sensors.md",
+    "school_id": "02_Electronics",
+    "module_id": "Module 8- Sensors & Instrumentation",
+    "chunk_index": 0,
+    "metadata": {
+      "paragraph_count": 3
+    }
+  }
+]
