@@ -1,0 +1,9 @@
+- Ohm's Law
+- Power Law
+- Kirchhoff's Current Law (KCL)
+- Kirchhoff's Voltage Law (KVL)
+- Series circuits
+- Parallel circuits
+- Combination circuits
+- Voltage divider
+- Current divider

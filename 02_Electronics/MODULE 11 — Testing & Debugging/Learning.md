@@ -1,0 +1,9 @@
+- Multimeter
+- Oscilloscope
+- Logic analyzer
+- Signal generator
+- Bench power supply
+- Soldering
+- Rework
+- Fault diagnosis
+- Reliability testing

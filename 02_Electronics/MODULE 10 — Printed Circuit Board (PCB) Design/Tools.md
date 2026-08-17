@@ -1,0 +1,3 @@
+- KiCad
+- Altium Designer
+- EasyEDA

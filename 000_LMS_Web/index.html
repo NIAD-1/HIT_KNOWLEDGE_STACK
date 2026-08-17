@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HIT Founder OS — Industrial Intelligence Operating System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <!-- SIDEBAR NAVIGATION -->
+      <aside class="sidebar" aria-label="Founder OS Navigation">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">H</div>
+          <div>
+            <p class="eyebrow">HIT Founder OS</p>
+            <h1>Industrial Cockpit</h1>
+          </div>
+        </div>
+
+        <nav class="nav-list">
+          <a href="#dashboard" class="active"><span class="nav-icon">⚡</span> Cockpit Overview</a>
+          <a href="#world"><span class="nav-icon">🗺️</span> World Map (26 Schools)</a>
+          <a href="#skills"><span class="nav-icon">🌲</span> Skill Trees</a>
+          <a href="#missions"><span class="nav-icon">🚀</span> Mission Arcs</a>
+          <a href="#evidence"><span class="nav-icon">📁</span> Evidence Vault</a>
+          <a href="#character"><span class="nav-icon">🛡️</span> Character Sheet</a>
+          <a href="#company"><span class="nav-icon">🏢</span> HIT Product Lines</a>
+          <a href="#settings"><span class="nav-icon">⚙️</span> Backup & Settings</a>
+        </nav>
+
+        <div class="sidebar-panel">
+          <p class="panel-label">Founder Mission</p>
+          <strong>Learn one school. Build one artifact. Move HIT forward.</strong>
+          <span>Capabilities $\rightarrow$ Missions $\rightarrow$ Products</span>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT COCKPIT -->
+      <main>
+        <!-- DASHBOARD HERO -->
+        <section id="dashboard" class="topbar">
+          <div>
+            <p class="eyebrow">Industrial Intelligence Company Operating System</p>
+            <h2>Build HIT through technical mastery, proof of work, and product creation</h2>
+            <p class="topbar-subtext">Integrated progression platform connecting hardware, software, AI, regulatory science, and company creation.</p>
+          </div>
+          <div class="topbar-actions">
+            <a class="primary-action" href="obsidian://open?vault=HIT_Knowledge_Stack&file=000_LMS%2FLMS%20Home">Open Vault in Obsidian</a>
+          </div>
+        </section>
+
+        <!-- TOP METRICS GRID -->
+        <section class="metrics-grid" aria-label="Cockpit Metrics">
+          <article class="metric">
+            <span class="metric-label">Evidence Vault Items</span>
+            <strong id="metricNotes">0</strong>
+            <p>Verified proof of work & research</p>
+          </article>
+          <article class="metric">
+            <span class="metric-label">Progression Schools</span>
+            <strong id="metricSchools">26</strong>
+            <p>First Principles to Venture</p>
+          </article>
+          <article class="metric">
+            <span class="metric-label">Active Project Arcs</span>
+            <strong id="metricMissions">0</strong>
+            <p>Company-building missions</p>
+          </article>
+          <article class="metric highlight">
+            <span class="metric-label">Overall Readiness Score</span>
+            <strong id="metricReadiness">0%</strong>
+            <p>HIT commercial launch readiness</p>
+          </article>
+        </section>
+
+        <!-- WORLD MAP SECTION -->
+        <section id="world" class="section-container">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Interactive Progression Path</p>
+              <h2>26-School Capability World Map</h2>
+            </div>
+            <div class="map-controls">
+              <select id="schoolCategoryFilter" class="select-input">
+                <option value="All">All Categories</option>
+                <option value="Foundations">Foundations</option>
+                <option value="Hardware">Hardware</option>
+                <option value="Connectivity">Connectivity</option>
+                <option value="Platform">Platform</option>
+                <option value="Intelligence">Intelligence</option>
+                <option value="Domains">Domains</option>
+                <option value="Venture">Venture Creation</option>
+              </select>
+              <input id="schoolSearchInput" class="search-input" type="search" placeholder="Search school title or capability..." />
+            </div>
+          </div>
+
+          <div class="workspace-band">
+            <div class="knowledge-map" aria-label="Progression Map Canvas">
+              <canvas id="mapCanvas" width="980" height="380"></canvas>
+            </div>
+            <div class="focus-panel">
+              <p class="eyebrow">Progression Philosophy</p>
+              <h3>From Fundamental Theory to Industrial Venture</h3>
+              <p>
+                Numbered schools are not isolated subjects. They form a deliberate progression path: First principles unlock electronics, electronics unlock embedded firmware, firmware unlocks edge gateways, edge gateways feed cloud AI engines, and AI engines build HIT's commercial product lines.
+              </p>
+              <div class="status-row">
+                <span>Level 1: Theory</span>
+                <span>Level 2: Engineering</span>
+                <span>Level 3: Research</span>
+                <span>Level 4: Founder Thinking</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SCHOOL CARDS CATALOG -->
+          <div class="catalog-grid" id="schoolsGrid"></div>
+        </section>
+
+        <!-- SLIDING SCHOOL DETAIL DRAWER (4-LEVEL MASTERY) -->
+        <div id="schoolDrawer" class="school-drawer">
+          <div class="drawer-header">
+            <div>
+              <p class="eyebrow">School Inspector & 4-Level Units</p>
+              <h3 id="drawerTitle">School Details</h3>
+              <p id="drawerPurpose" class="drawer-purpose"></p>
+            </div>
+            <button id="closeDrawerBtn" class="close-btn" type="button">&times;</button>
+          </div>
+          <div id="drawerBody" class="drawer-body"></div>
+        </div>
+
+        <!-- SKILL TREES SECTION -->
+        <section id="skills" class="section-container">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Cross-School Capability Tree</p>
+              <h2>Interconnected Founder Skill Tree</h2>
+            </div>
+          </div>
+          <div class="skill-tree-wrapper">
+            <canvas id="skillCanvas" width="980" height="320"></canvas>
+          </div>
+        </section>
+
+        <!-- MISSIONS / PROJECT ARCS SECTION -->
+        <section id="missions" class="section-container">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Company-Building Project Arcs</p>
+              <h2>Missions Fusing Schools into Products</h2>
+            </div>
+            <button id="missionSortBtn" class="secondary-action" type="button">Sort by Readiness</button>
+          </div>
+          <div class="mission-grid" id="missionsGrid"></div>
+        </section>
+
+        <!-- EVIDENCE VAULT SECTION -->
+        <section id="evidence" class="section-container">
+          <div class="evidence-layout">
+            <div class="evidence-copy">
+              <p class="eyebrow">Irrefutable Proof of Work</p>
+              <h2>Evidence Vault</h2>
+              <p class="section-copy">
+                Log learning notes, research papers, YouTube video references, PDF datasheets, PCB schematics, firmware repos, test logs, telemetry streams, and compliance mappings.
+              </p>
+            </div>
+            <form id="evidenceForm" class="evidence-form">
+              <label>
+                Title
+                <input id="evidenceTitleInput" type="text" placeholder="e.g. ESP32 RTD sensor SPI test log" required />
+              </label>
+              <label>
+                Type
+                <select id="evidenceTypeSelect">
+                  <option>Learning note</option>
+                  <option>Research source</option>
+                  <option>YouTube video</option>
+                  <option>PDF datasheet</option>
+                  <option>Schematic</option>
+                  <option>Firmware/code</option>
+                  <option>Test log</option>
+                  <option>Telemetry stream</option>
+                  <option>Compliance mapping</option>
+                  <option>Reflection</option>
+                </select>
+              </label>
+              <label>
+                Target Mission Arc
+                <select id="evidenceMissionSelect"></select>
+              </label>
+              <label>
+                Related School
+                <select id="evidenceSchoolSelect"></select>
+              </label>
+              <label>
+                Skill Proven
+                <select id="evidenceSkillSelect"></select>
+              </label>
+              <label>
+                Target Product Line
+                <select id="evidenceProductSelect"></select>
+              </label>
+              <label class="full-width">
+                Resource Link or Repository URL
+                <input id="evidenceLinkInput" type="url" placeholder="https://github.com/org/repo or datasheet link" />
+              </label>
+              <label class="full-width">
+                Technical Notes & Insights
+                <textarea id="evidenceNotesInput" rows="4" placeholder="What did you build, test, prove, or discover?"></textarea>
+              </label>
+              <button class="primary-action full-width" type="submit">Log Evidence Item</button>
+            </form>
+          </div>
+
+          <div class="evidence-controls">
+            <input id="evidenceSearchInput" class="search-input" type="search" placeholder="Search evidence notes or tags..." />
+            <select id="evidenceFilterTypeSelect" class="select-input">
+              <option value="All">All Types</option>
+              <option value="Learning note">Learning note</option>
+              <option value="Research source">Research source</option>
+              <option value="YouTube video">YouTube video</option>
+              <option value="PDF datasheet">PDF datasheet</option>
+              <option value="Firmware/code">Firmware/code</option>
+              <option value="Test log">Test log</option>
+            </select>
+          </div>
+
+          <div class="evidence-grid" id="evidenceGrid"></div>
+        </section>
+
+        <!-- FOUNDER CHARACTER SHEET SECTION -->
+        <section id="character" class="section-container">
+          <div class="character-band">
+            <div class="character-intro">
+              <p class="eyebrow">Protagonist Character Sheet</p>
+              <h2>Founder Capability Telemetry</h2>
+              <p>
+                Technical company building requires both domain mastery and founder discipline. Track your awakening across 10 core builder traits backed by logged evidence.
+              </p>
+              <div class="radar-container">
+                <canvas id="radarCanvas" width="340" height="340"></canvas>
+              </div>
+            </div>
+            <div class="trait-grid" id="traitsGrid"></div>
+          </div>
+        </section>
+
+        <!-- HIT COMPANY ROADMAP SECTION -->
+        <section id="company" class="section-container">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Commercialization Roadmap</p>
+              <h2>HIT Product Lines</h2>
+            </div>
+          </div>
+          <div class="product-grid" id="productsGrid"></div>
+        </section>
+
+        <!-- SETTINGS & BACKUP CONTROLS SECTION -->
+        <section id="settings" class="section-container obsidian-band">
+          <div>
+            <p class="eyebrow">Data Sovereignty & Persistence</p>
+            <h2>Backup, Export & Obsidian Integration</h2>
+            <p>
+              HIT Founder OS runs locally in your browser with offline storage. Export JSON data backups anytime or connect directly with your local Obsidian vault.
+            </p>
+            <div class="settings-actions">
+              <button id="exportDataBtn" class="primary-action" type="button">Export Data Backup (JSON)</button>
+              <label class="secondary-action file-upload-label">
+                Import JSON Backup
+                <input id="importDataInput" type="file" accept=".json" style="display:none" />
+              </label>
+              <button id="resetSeedDataBtn" class="danger-action" type="button">Reset to Seed Data</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,3 @@
+- ECG signal analysis
+- Sensor noise filtering
+- Vibration analysis

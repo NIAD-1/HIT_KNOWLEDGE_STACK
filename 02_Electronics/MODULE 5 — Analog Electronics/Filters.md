@@ -1,0 +1,6 @@
+- Low-pass
+- High-pass
+- Band-pass
+- Band-stop
+- Active filters
+- Passive filters

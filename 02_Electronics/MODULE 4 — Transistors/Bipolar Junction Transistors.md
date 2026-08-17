@@ -1,0 +1,9 @@
+- NPN
+- PNP
+- Active region
+- Saturation
+- Cutoff
+- Biasing
+- Common emitter
+- Common collector
+- Common base

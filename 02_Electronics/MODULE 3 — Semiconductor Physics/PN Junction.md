@@ -1,0 +1,5 @@
+- Depletion region
+- Forward bias
+- Reverse bias
+- Breakdown
+- Junction capacitance

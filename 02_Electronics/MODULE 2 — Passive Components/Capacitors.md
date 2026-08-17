@@ -1,0 +1,10 @@
+- Ceramic
+- Electrolytic
+- Film
+- Tantalum
+- Supercapacitors
+- Charging
+- Discharging
+- RC circuits
+- Filtering
+- Decoupling

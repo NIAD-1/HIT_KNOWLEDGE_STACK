@@ -1,0 +1,10 @@
+- Electronic schematics
+- PCB layout
+- Trace routing
+- Ground planes
+- EMI/EMC basics
+- High-speed design principles
+- Differential pairs
+- Design for Manufacturing (DFM)
+- Design for Assembly (DFA)
+- PCB testing

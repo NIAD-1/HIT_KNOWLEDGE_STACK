@@ -1,0 +1,9 @@
+# Assignment — Open-access publishing
+
+_Module 13: Publishing & Scientific Impact_
+
+Hands-on exercise or deliverable applying **Open-access publishing** to HIT.
+
+- [ ] Defined
+- [ ] In progress
+- [ ] Done

@@ -1,0 +1,5 @@
+# Learning — Core coaching skills
+
+_Module 17: Coaching & Mentorship_
+
+Key takeaways and decisions from studying **Core coaching skills**.

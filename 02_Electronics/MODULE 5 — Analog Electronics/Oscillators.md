@@ -1,0 +1,3 @@
+- RC oscillator
+- Crystal oscillator
+- Phase-locked loop (PLL)

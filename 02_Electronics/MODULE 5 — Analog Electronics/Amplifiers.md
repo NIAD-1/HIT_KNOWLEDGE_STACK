@@ -1,0 +1,7 @@
+- Operational Amplifiers (Op-Amps)
+- Gain
+- Inverting amplifier
+- Non-inverting amplifier
+- Comparator
+- Differential amplifier
+- Instrumentation amplifier

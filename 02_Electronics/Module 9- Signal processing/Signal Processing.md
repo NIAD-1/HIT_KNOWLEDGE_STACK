@@ -1,0 +1,11 @@
+- Analog signals
+- Digital signals
+- Sampling
+- Nyquist theorem
+- Quantization
+- ADC
+- DAC
+- Noise
+- Signal conditioning
+- Filtering
+- FFT (Fast Fourier Transform)

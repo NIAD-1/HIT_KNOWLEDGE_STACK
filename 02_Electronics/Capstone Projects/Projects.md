@@ -1,0 +1,7 @@
+- A complete **ESP32-based environmental monitoring device**.
+- A **cold-chain temperature logger** for pharmaceuticals.
+- A **GPS and sensor tracker** for medicine transport.
+- A **battery-powered LoRaWAN sensor node**.
+- A **smart warehouse monitoring system**.
+- Your own **custom PCB** instead of relying on development boards.
+- A reliable hardware prototype suitable for field testing.

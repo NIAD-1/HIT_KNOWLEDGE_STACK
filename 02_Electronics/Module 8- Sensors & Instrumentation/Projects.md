@@ -1,0 +1,4 @@
+- Smart warehouse monitor
+- Cold-chain logger
+- Smart electricity meter
+- Drug transport tracker

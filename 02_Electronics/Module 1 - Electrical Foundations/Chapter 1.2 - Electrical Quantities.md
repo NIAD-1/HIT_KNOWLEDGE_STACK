@@ -1,0 +1,12 @@
+- Electric charge (Coulomb)
+- Current
+- Voltage
+- Resistance
+- Power
+- Energy
+- Frequency
+- Period
+- Capacitance
+- Inductance
+- Impedance
+- Reactance

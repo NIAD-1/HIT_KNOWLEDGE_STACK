@@ -1,0 +1,4 @@
+- CMOS
+- CCD
+- Machine vision
+- 

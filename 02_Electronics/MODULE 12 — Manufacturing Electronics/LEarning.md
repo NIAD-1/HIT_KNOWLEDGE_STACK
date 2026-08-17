@@ -1,0 +1,10 @@
+- Surface Mount Technology (SMT)
+- Through-hole assembly
+- Pick-and-place machines
+- Reflow soldering
+- Wave soldering
+- PCB fabrication
+- Component sourcing
+- Bill of Materials (BOM)
+- Quality control
+- IPC standards

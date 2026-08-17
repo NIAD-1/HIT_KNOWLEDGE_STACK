@@ -1,0 +1,6 @@
+- Binary
+- Octal
+- Decimal
+- Hexadecimal
+- BCD
+- Gray Code

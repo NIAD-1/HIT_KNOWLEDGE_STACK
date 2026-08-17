@@ -1,0 +1,6 @@
+- Magnetic fields
+- Coils
+- Chokes
+- Transformers
+- RL circuits
+- LC circuits

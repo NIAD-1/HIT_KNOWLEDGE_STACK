@@ -1,0 +1,7 @@
+- AND
+- OR
+- NOT
+- NAND
+- NOR
+- XOR
+- XNOR

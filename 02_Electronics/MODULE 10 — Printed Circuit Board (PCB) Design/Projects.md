@@ -1,0 +1,3 @@
+- Design an ESP32 development board
+- Design a sensor interface board
+- Design a power distribution board

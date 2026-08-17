@@ -1,0 +1,9 @@
+- Carbon resistors
+- Metal film
+- Wire wound
+- SMD resistors
+- Color coding
+- Tolerance
+- Power rating
+- Pull-up resistors
+- Pull-down resistors

@@ -1,0 +1,9 @@
+- Silicon
+- Germanium
+- Crystal lattice
+- Energy bands
+- Intrinsic semiconductors
+- Extrinsic semiconductors
+- Doping
+- N-Type
+- P-Type

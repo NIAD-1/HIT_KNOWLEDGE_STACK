@@ -1,0 +1,5 @@
+- Flip-flops
+- Registers
+- Counters
+- Finite State Machines
+-

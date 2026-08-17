@@ -1,0 +1,6 @@
+- Adders
+- Multiplexers
+- Demultiplexers
+- Encoders
+- Decoders
+- Comparators

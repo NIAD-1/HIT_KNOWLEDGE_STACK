@@ -1,0 +1,8 @@
+- Enhancement MOSFET
+- Depletion MOSFET
+- Gate
+- Source
+- Drain
+- Threshold voltage
+- Switching
+- Power MOSFET

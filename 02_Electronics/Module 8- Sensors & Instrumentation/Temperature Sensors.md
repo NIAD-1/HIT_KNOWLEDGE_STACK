@@ -1,0 +1,4 @@
+- Thermistors
+- RTDs
+- Thermocouples
+- Digital sensors

@@ -1,0 +1,3 @@
+- Piezoelectric
+- MEMS
+- Strain gauges

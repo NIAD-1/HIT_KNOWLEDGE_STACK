@@ -1,0 +1,3 @@
+- Digital clock
+- Binary counter
+- Alarm system

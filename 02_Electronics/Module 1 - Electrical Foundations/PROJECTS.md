@@ -1,0 +1,3 @@
+- Analyze household circuits
+- Design LED circuits
+- Build voltage divider experiments

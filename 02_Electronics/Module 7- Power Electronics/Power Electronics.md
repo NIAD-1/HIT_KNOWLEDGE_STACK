@@ -1,0 +1,13 @@
+- AC Power
+- DC Power
+- Rectifiers
+- Inverters
+- Buck converters
+- Boost converters
+- Buck-Boost converters
+- Linear regulators
+- Switching regulators
+- Battery charging
+- Solar power systems
+- UPS systems
+- Battery Management Systems (BMS)
