@@ -1,0 +1,17 @@
+{
+  "id": "./",
+  "name": "HIT University",
+  "short_name": "HIT Learn",
+  "description": "Learn, build, and connect ideas across your schools.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f7f7f3",
+  "theme_color": "#285b48",
+  "categories": ["education", "productivity"],
+  "icons": [
+    { "src": "./icons/app-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" },
+    { "src": "./icons/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ]
+}

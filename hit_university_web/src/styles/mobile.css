@@ -1,0 +1,63 @@
+@media(max-width:760px){
+  .mobile-app-nav a{font-size:10px}
+  .welcome-copy{font-size:13px;line-height:1.55}
+  .section-heading h2{font-size:20px}
+  .featured-copy h3{font-size:15px}
+  .featured-copy p{font-size:12px;line-height:1.45}
+  .school-meta span{font-size:9.5px}
+  .school-tile-copy b{font-size:11px}
+  .school-tile-copy small{font-size:9px}
+  .project-info h3{font-size:13px}
+  .project-info p{font-size:10.5px;line-height:1.45}
+  .project-path{font-size:8.5px}
+  .school-hero-copy>p:not(.eyebrow){font-size:13px;line-height:1.6}
+  .section-subtitle{font-size:12px;line-height:1.5}
+  .highlight-item b{font-size:10.5px}
+  .highlight-item small{font-size:9px}
+  .module-main b{font-size:12px}
+  .module-main small{font-size:9.5px;line-height:1.5}
+  .school-project-card h3{font-size:15px}
+  .school-project-card>p{font-size:11.5px;line-height:1.55}
+  .project-path-line{font-size:9px}
+  .school-map-section h2{font-size:23px}
+  .breadcrumbs{font-size:10px}
+  .outline-link{font-size:10px}
+  .lesson-outline .outline-label{font-size:9px}
+  .lesson-lead{font-size:13px;line-height:1.55}
+  .lesson-tabs button{font-size:10.5px}
+  .learning-goals b{font-size:11px}
+  .learning-goals ul{font-size:10.5px;line-height:1.6}
+  .lesson-section h2{font-size:14px}
+  .lesson-section p{font-size:12.5px;line-height:1.7}
+  .lesson-callout{font-size:11px}
+  .source-note{font-size:9.5px}
+  .resource-strip>div>b{font-size:11px}
+  .resource-type{font-size:8.5px}
+  .resource-strip>a b{font-size:10px}
+  .lesson-footer-nav{font-size:9px}
+  .tutor-intro{font-size:10.5px}
+  .tutor-starters>span{font-size:8.5px}
+  .tutor-starters button{font-size:10px}
+  .tutor-empty{font-size:9.5px}
+  .chat-bubble{font-size:10.5px}
+  .tutor-form input{font-size:11px}
+  .connected-card>p:not(.eyebrow){font-size:9.5px}
+  .video-empty b{font-size:12px}
+  .video-empty span{font-size:10px}
+  .video-add-form input{font-size:10.5px}
+  .audio-title h2,.notes-heading h2{font-size:15px}
+  .audio-title p,.notes-heading p{font-size:10px}
+  .audio-empty{font-size:10px}
+  .audio-record,.audio-upload{font-size:10px}
+  .saved-audio-name{font-size:10px}
+  .storage-note{font-size:9px}
+  .personal-notes-card textarea{font-size:13px;line-height:1.65}
+  .notes-footer{font-size:9px}
+  .playlist-heading h2{font-size:16px}
+  .playlist-heading p:not(.eyebrow){font-size:9.5px}
+  .track-copy b{font-size:11px}
+  .track-copy small{font-size:9px}
+  .playlist-empty b{font-size:12px}
+  .playlist-empty>span:not(.playlist-empty-icon){font-size:10px}
+}
+@media(max-width:760px){.mobile-app-nav{grid-template-columns:repeat(6,minmax(0,1fr))}.mobile-app-nav a{font-size:7px;gap:2px}.mobile-app-nav svg{width:16px;height:16px}}

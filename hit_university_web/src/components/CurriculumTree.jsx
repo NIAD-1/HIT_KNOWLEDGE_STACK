@@ -1,0 +1,50 @@
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ChevronDown, ChevronRight, File, FileText, Folder, Loader2 } from 'lucide-react';
+
+const API = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.BASE_URL.replace(/\/$/, ''));
+
+function FolderBranch({ folder, depth = 0, initiallyOpen = false }) {
+  const [open, setOpen] = useState(initiallyOpen);
+  const [listing, setListing] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  async function loadFolder() {
+    if (listing) return;
+    setLoading(true); setError('');
+    try {
+      const response = await fetch(`${API}/api/vault/browse?path=${encodeURIComponent(folder.path)}`);
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.detail || 'Could not load this curriculum folder.');
+      setListing(data);
+    } catch (e) { setError(e.message); }
+    finally { setLoading(false); }
+  }
+
+  useEffect(() => { if (initiallyOpen) loadFolder(); }, []);
+
+  const toggle = () => {
+    if (!open) loadFolder();
+    setOpen(!open);
+  };
+
+  return <div className="curriculum-tree-branch" style={{ '--tree-depth': depth }}>
+    <button className="curriculum-tree-folder" onClick={toggle} aria-expanded={open}>
+      {open ? <ChevronDown size={15}/> : <ChevronRight size={15}/>}<Folder size={16}/><span>{folder.name}</span>{loading && <Loader2 size={14} className="spin"/>}
+    </button>
+    {open && <div className="curriculum-tree-children">
+      {error && <p className="curriculum-tree-error">{error}</p>}
+      {listing?.folders.map(child => <FolderBranch key={child.path} folder={child} depth={depth + 1}/>)}
+      {listing?.files.map(file => <Link key={file.path} className="curriculum-tree-file" to={`/vault?path=${encodeURIComponent(file.path)}`}>
+        {file.extension === '.md' ? <FileText size={14}/> : <File size={14}/>}<span>{file.name}</span><small>{file.extension || 'file'}</small>
+      </Link>)}
+      {listing && !listing.folders.length && !listing.files.length && <p className="curriculum-tree-empty">No notes or resources in this folder yet.</p>}
+    </div>}
+  </div>;
+}
+
+export default function CurriculumTree({ path, label }) {
+  const root = { path, name: label || path.split('/').pop() || 'HIT library curriculum' };
+  return <div className="curriculum-tree"><FolderBranch folder={root} initiallyOpen/></div>;
+}

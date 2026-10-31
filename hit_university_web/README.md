@@ -15,6 +15,29 @@ A modern React-based web interface for your multi-agent AI tutor system, designe
 
 ## Quick Start
 
+### Launch the local app from Terminal
+
+Run this from the HIT Knowledge Stack folder:
+
+```bash
+cd hit_university_web
+./start.sh
+```
+
+The launcher starts whichever local services are missing, then opens `http://127.0.0.1:3000` in your browser. Keep the Terminal window open while it runs; press `Ctrl+C` to stop any servers it started. If both servers are already running, it opens the existing app and exits.
+
+## Independent HIT Knowledge Library
+
+HIT School now uses its own library at `data/knowledge_base/`. The current local setup was seeded with a one-time copy of the knowledge folders and attachments from the workspace. The original folders are left untouched, and the app no longer reads them. Notes edited or images uploaded in HIT School are saved into this library.
+
+The AI tutor and learning planner search Markdown notes in this library for relevant context. Set `HIT_KNOWLEDGE_ROOT` in `api/.env` if you want the local API to use a different persistent library folder. This local filesystem library is independent of Obsidian; cloud sync and hosted storage are separate work for the later Firebase setup.
+
+## GitHub Pages
+
+The repository includes a GitHub Actions workflow that builds and deploys the frontend when changes are pushed to `main`. In the repository settings, set **Pages → Build and deployment → Source** to **GitHub Actions**. The app is built at `/HIT_KNOWLEDGE_STACK/` and supports direct links and refreshes on Pages.
+
+GitHub Pages hosts static files only. The local Python API and the copied private library are not deployed by this workflow. The hosted curriculum search, library editing, AI tutor, and audio generation need a separately hosted API and storage; provide the API origin as the repository Actions variable `VITE_API_URL` after that service is ready. The copied `data/knowledge_base/` folder is excluded from Git so personal notes are not published as part of the site.
+
 ### 1. Install Dependencies
 
 ```bash
