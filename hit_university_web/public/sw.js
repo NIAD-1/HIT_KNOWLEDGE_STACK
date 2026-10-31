@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hit-university-shell-v1';
+const CACHE_NAME = 'hit-university-shell-v2';
 const APP_BASE = new URL('./', self.registration.scope).href;
 const APP_SHELL = [APP_BASE, new URL('manifest.webmanifest', APP_BASE).href, new URL('icons/app-icon.svg', APP_BASE).href, new URL('icons/apple-touch-icon.png', APP_BASE).href];
 

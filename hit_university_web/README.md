@@ -38,6 +38,8 @@ The repository includes a GitHub Actions workflow that builds and deploys the fr
 
 GitHub Pages hosts static files only. The local Python API and the copied private library are not deployed by this workflow. The hosted curriculum search, library editing, AI tutor, and audio generation need a separately hosted API and storage; provide the API origin as the repository Actions variable `VITE_API_URL` after that service is ready. The copied `data/knowledge_base/` folder is excluded from Git so personal notes are not published as part of the site.
 
+Before that API is connected, the Pages build shows the five school entries bundled with HIT School as a limited offline fallback. It does not publish or bundle folder paths, note text, filenames, or attachments from your local library.
+
 ### 1. Install Dependencies
 
 ```bash
