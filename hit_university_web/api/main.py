@@ -271,6 +271,41 @@ async def browse_vault(path: str = ""):
     files.sort(key=curriculum_sort_key)
     return {"path": path, "name": directory.name if path else "HIT Knowledge Library", "folders": folders, "files": files}
 
+@app.get("/api/vault/tree", dependencies=[Depends(require_library_user)])
+async def read_vault_tree():
+    """Return the complete library directory tree for instant client-side expansion."""
+    if not KNOWLEDGE_ROOT.is_dir():
+        raise HTTPException(status_code=404, detail="The HIT knowledge library is not available.")
+    root = {"path": "", "name": "HIT Knowledge Library", "folders": [], "files": []}
+    nodes = {"": root}
+    for current, directories, filenames in os.walk(KNOWLEDGE_ROOT):
+        current_path = Path(current)
+        relative = current_path.relative_to(KNOWLEDGE_ROOT).as_posix()
+        relative = "" if relative == "." else relative
+        node = nodes.get(relative)
+        if node is None:
+            continue
+        directories[:] = [name for name in directories if name not in KNOWLEDGE_IGNORED_DIRS and not (current_path / name).is_symlink()]
+        for name in directories:
+            child_path = (Path(relative) / name).as_posix() if relative else name
+            child = {"path": child_path, "name": name, "folders": [], "files": []}
+            node["folders"].append(child)
+            nodes[child_path] = child
+        for name in filenames:
+            child_path = current_path / name
+            if child_path.is_symlink() or name.lower() in KNOWLEDGE_IGNORED_FILES or not child_path.is_file():
+                continue
+            node["files"].append({
+                "name": name,
+                "path": child_path.relative_to(KNOWLEDGE_ROOT).as_posix(),
+                "extension": child_path.suffix.lower(),
+                "size": child_path.stat().st_size,
+            })
+    for node in nodes.values():
+        node["folders"].sort(key=curriculum_sort_key)
+        node["files"].sort(key=curriculum_sort_key)
+    return root
+
 @app.get("/api/vault/search", dependencies=[Depends(require_library_user)])
 def search_vault(q: str, limit: int = 50):
     """Search the independent HIT knowledge library."""

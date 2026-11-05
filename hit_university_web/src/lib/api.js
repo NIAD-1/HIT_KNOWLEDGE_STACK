@@ -1,13 +1,12 @@
 const API = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.BASE_URL.replace(/\/$/, ''));
 const SESSION_KEY = 'hit-supabase-session';
 const LIBRARY_CACHE_PREFIX = 'hit-library-private-v1-';
-const folderPrefetches = new Map();
 let sessionRefreshPromise = null;
 
 function libraryCacheable(target, method) {
   if (method !== 'GET') return false;
   const path = new URL(target, window.location.href).pathname;
-  return /\/api\/vault\/(browse|search$|note\/|file\/|asset$)/.test(path);
+  return /\/api\/vault\/(browse|tree$|search$|note\/|file\/|asset$)/.test(path);
 }
 
 function privateCacheName(session) {
@@ -42,7 +41,8 @@ async function cacheLibraryWrite(target, options, response, session) {
       const keys = await cache.keys();
       await Promise.all(keys.filter(key => {
         const url = new URL(key.url);
-        return url.pathname.endsWith('/api/vault/browse') && url.searchParams.get('path') === folderPath;
+        return (url.pathname.endsWith('/api/vault/browse') && url.searchParams.get('path') === folderPath)
+          || url.pathname.endsWith('/api/vault/tree');
       }).map(key => cache.delete(key)));
     }
   } catch { /* The server write succeeds even if local caching is unavailable. */ }
@@ -126,7 +126,7 @@ export async function apiFetch(path, options = {}) {
     throw error;
   }
   if (response.ok && cache && key && readAuthSession()?.user?.id === session?.user?.id) await cache.put(key, response.clone());
-  if (response.ok && method !== 'GET') void cacheLibraryWrite(target, options, response, session);
+  if (response.ok && method !== 'GET') await cacheLibraryWrite(target, options, response, session);
   if (response.status === 401 && session) {
     clearAuthSession();
     window.dispatchEvent(new Event('hit-auth-expired'));
@@ -147,27 +147,6 @@ async function refreshCachedLibraryResponse(target, options, previousSession, ca
       window.dispatchEvent(new Event('hit-auth-expired'));
     }
   } catch { /* Keep the on-device copy when the network is unavailable. */ }
-}
-
-export async function prefetchLibraryFolders(folders, concurrency = 5) {
-  if (!navigator.onLine || !folders?.length) return;
-  const queue = [...folders];
-  async function worker() {
-    while (queue.length) {
-      const folder = queue.shift();
-      if (folder) await fetchLibraryFolder(folder.path).catch(() => null);
-    }
-  }
-  await Promise.all(Array.from({ length: Math.min(concurrency, queue.length) }, worker));
-}
-
-export function fetchLibraryFolder(path) {
-  const target = `${API}/api/vault/browse?path=${encodeURIComponent(path)}`;
-  const requestKey = `${readAuthSession()?.user?.id || 'anonymous'}:${target}`;
-  if (folderPrefetches.has(requestKey)) return folderPrefetches.get(requestKey);
-  const request = apiFetch(target).finally(() => folderPrefetches.delete(requestKey));
-  folderPrefetches.set(requestKey, request);
-  return request;
 }
 
 export { API };
