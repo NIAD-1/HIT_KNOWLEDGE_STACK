@@ -11,6 +11,7 @@ import Tutor from './pages/Tutor';
 import Vault from './pages/Vault';
 import Curriculum from './pages/Curriculum';
 import { AudioPlayerProvider } from './components/AudioPlayer';
+import AuthGate from './components/AuthGate';
 
 function MobileNav() {
   return <nav className="mobile-app-nav" aria-label="App navigation">
@@ -25,7 +26,7 @@ function MobileNav() {
 
 function App() {
   return (
-    <AudioPlayerProvider>
+    <AuthGate><AudioPlayerProvider>
     <Router basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/" element={<Dashboard />} />
@@ -41,7 +42,7 @@ function App() {
       </Routes>
       <MobileNav />
     </Router>
-    </AudioPlayerProvider>
+    </AudioPlayerProvider></AuthGate>
   );
 }
 

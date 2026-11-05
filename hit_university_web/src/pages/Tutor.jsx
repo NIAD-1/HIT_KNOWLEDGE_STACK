@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Bell, BookOpen, Check, Clock3, Headphones, Link2, Loader2, Play, Search, Sparkles, Volume2 } from 'lucide-react';
 import { useAudioPlayer } from '../components/AudioPlayer';
+import { API, apiFetch } from '../lib/api';
 
-const API = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.BASE_URL.replace(/\/$/, ''));
 const reminderKey = 'hit-daily-learning-reminder';
 const streakKey = 'hit-learning-days';
 
@@ -57,7 +57,7 @@ function Tutor() {
   };
 
   const tutorRequest = async (path, payload) => {
-    const response = await fetch(`${API}${path}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    const response = await apiFetch(`${API}${path}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     if (!response.ok) { let message = 'The tutor could not complete that request.'; try { message = (await response.json()).detail || message; } catch {} throw new Error(message); }
     return response;
   };

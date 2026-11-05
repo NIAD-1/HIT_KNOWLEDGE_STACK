@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, ArrowUpRight, AudioLines, BookOpen, Check, ChevronDown, HelpCircle, ExternalLink, FileAudio, FileText, Lightbulb, Link2, MessageCircle, Mic, Play, Save, Send, Sparkles, Trash2, Upload, Video, Wrench } from 'lucide-react';
 import { pilotSchool } from '../data/pilotSchool';
+import { API, apiFetch } from '../lib/api';
 
 const AUDIO_DB = 'hit-university-media';
 const AUDIO_STORE = 'recordings';
@@ -303,7 +304,7 @@ function Classroom() {
     setNarrationLoading(true);
     setRecordingError('');
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.BASE_URL.replace(/\/$/, ''))}/api/narrate`, {
+      const response = await apiFetch(`${API}/api/narrate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: activeTopic || lesson.title, text }),
@@ -334,7 +335,7 @@ function Classroom() {
     setChatError('');
     setChatLoading(true);
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.BASE_URL.replace(/\/$/, ''))}/api/ask`, {
+      const response = await apiFetch(`${API}/api/ask`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

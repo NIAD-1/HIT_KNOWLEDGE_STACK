@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import Optional, List
@@ -15,6 +15,7 @@ from pathlib import Path
 from fastapi import Response
 from fastapi.responses import FileResponse
 from dotenv import load_dotenv
+from api.supabase_library import configured as supabase_storage_configured, load_library, save_override
 
 load_dotenv(Path(__file__).parent / ".env")
 
@@ -85,6 +86,48 @@ APP_ROOT = Path(__file__).resolve().parents[1]
 KNOWLEDGE_ROOT = Path(os.getenv("HIT_KNOWLEDGE_ROOT", APP_ROOT / "data" / "knowledge_base")).expanduser().resolve()
 KNOWLEDGE_IGNORED_DIRS = {".git", ".obsidian", "node_modules", "venv", ".venv", "__pycache__", ".pytest_cache"}
 KNOWLEDGE_IGNORED_FILES = {".ds_store", ".env", ".env.local", ".env.production"}
+
+@app.on_event("startup")
+async def restore_supabase_library():
+    if supabase_storage_configured():
+        try:
+            await asyncio.to_thread(load_library, KNOWLEDGE_ROOT)
+        except Exception as error:
+            raise RuntimeError(f"Could not restore the HIT library from Supabase: {error}") from error
+
+async def require_library_user(request: Request):
+    """Validate the signed-in Supabase user before exposing private library data."""
+    supabase_url = os.getenv("SUPABASE_URL")
+    anon_key = os.getenv("SUPABASE_ANON_KEY")
+    # Local development remains usable before Supabase credentials are configured.
+    if not supabase_url and not supabase_storage_configured():
+        return
+    allowed_users = {value.strip().casefold() for value in os.getenv("HIT_ALLOWED_USERS", "").split(",") if value.strip()}
+    if not supabase_url or not anon_key or not allowed_users:
+        raise HTTPException(status_code=503, detail="Library sign-in access is not configured on the server.")
+    authorization = request.headers.get("Authorization", "")
+    if not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Sign in to access the HIT library.")
+    try:
+        async with httpx.AsyncClient(timeout=10) as client:
+            response = await client.get(
+                f"{supabase_url.rstrip('/')}/auth/v1/user",
+                headers={"apikey": anon_key, "Authorization": authorization},
+            )
+    except httpx.HTTPError as error:
+        raise HTTPException(status_code=503, detail="Could not verify your Supabase sign-in.") from error
+    if response.status_code != 200:
+        raise HTTPException(status_code=401, detail="Your sign-in has expired. Sign in again.")
+    user_email = str(response.json().get("email", "")).casefold()
+    if user_email not in allowed_users:
+        raise HTTPException(status_code=403, detail="This account is not approved for the HIT library.")
+
+def persist_library_file(path: Path) -> None:
+    if supabase_storage_configured():
+        try:
+            save_override(KNOWLEDGE_ROOT, path.relative_to(KNOWLEDGE_ROOT).as_posix())
+        except Exception as error:
+            raise HTTPException(status_code=502, detail="The library change could not be saved to Supabase.") from error
 
 def curriculum_sort_key(item):
     """Put First Principles first, then sort numbered curriculum items numerically."""
@@ -205,7 +248,7 @@ async def search_resources(q: str, school: Optional[str] = None, limit: int = 10
         "total": 0
     }
 
-@app.get("/api/vault/browse")
+@app.get("/api/vault/browse", dependencies=[Depends(require_library_user)])
 async def browse_vault(path: str = ""):
     """List folders and files from the independent HIT knowledge library."""
     directory = knowledge_path(path)
@@ -228,7 +271,7 @@ async def browse_vault(path: str = ""):
     files.sort(key=curriculum_sort_key)
     return {"path": path, "name": directory.name if path else "HIT Knowledge Library", "folders": folders, "files": files}
 
-@app.get("/api/vault/search")
+@app.get("/api/vault/search", dependencies=[Depends(require_library_user)])
 def search_vault(q: str, limit: int = 50):
     """Search the independent HIT knowledge library."""
     query = q.strip().casefold()
@@ -266,7 +309,7 @@ def search_vault(q: str, limit: int = 50):
     results = [item[1] for item in results[:safe_limit]]
     return {"query": q, "results": results, "total_returned": len(results), "limited": limited}
 
-@app.get("/api/vault/note/{relative_path:path}")
+@app.get("/api/vault/note/{relative_path:path}", dependencies=[Depends(require_library_user)])
 async def read_vault_note(relative_path: str):
     note = knowledge_path(relative_path)
     if not note.is_file() or note.suffix.lower() not in {".md", ".txt", ".csv", ".json", ".yaml", ".yml"}:
@@ -276,7 +319,7 @@ async def read_vault_note(relative_path: str):
     except OSError as error:
         raise HTTPException(status_code=404, detail="Could not read this note.") from error
 
-@app.post("/api/vault/note")
+@app.post("/api/vault/note", dependencies=[Depends(require_library_user)])
 async def create_library_note(request: LibraryNoteCreate):
     """Create a Markdown note in the independent HIT knowledge library."""
     title = request.title.strip()
@@ -293,11 +336,12 @@ async def create_library_note(request: LibraryNoteCreate):
     try:
         with note.open("x", encoding="utf-8") as handle:
             handle.write(content)
+        persist_library_file(note)
     except OSError as error:
         raise HTTPException(status_code=500, detail="Could not create the note in the HIT library.") from error
     return {"name": note.name, "path": note.relative_to(KNOWLEDGE_ROOT).as_posix(), "text": content}
 
-@app.put("/api/vault/note/{relative_path:path}")
+@app.put("/api/vault/note/{relative_path:path}", dependencies=[Depends(require_library_user)])
 async def update_vault_note(relative_path: str, request: VaultNoteUpdate):
     """Save Markdown edits directly to the corresponding file in the HIT knowledge library."""
     note = knowledge_path(relative_path)
@@ -311,20 +355,21 @@ async def update_vault_note(relative_path: str, request: VaultNoteUpdate):
             handle.write(request.text)
             temporary_note = Path(handle.name)
         os.replace(temporary_note, note)
+        persist_library_file(note)
     except OSError as error:
         if temporary_note:
             temporary_note.unlink(missing_ok=True)
         raise HTTPException(status_code=500, detail="Could not save changes to the Markdown note.") from error
     return {"name": note.name, "path": relative_path, "text": request.text, "saved": True}
 
-@app.get("/api/vault/file/{relative_path:path}")
+@app.get("/api/vault/file/{relative_path:path}", dependencies=[Depends(require_library_user)])
 async def download_vault_file(relative_path: str):
     file_path = knowledge_path(relative_path)
     if not file_path.is_file():
         raise HTTPException(status_code=404, detail="File not found.")
     return FileResponse(file_path, filename=file_path.name, content_disposition_type="inline")
 
-@app.get("/api/vault/asset")
+@app.get("/api/vault/asset", dependencies=[Depends(require_library_user)])
 async def read_vault_asset(note_path: str, target: str):
     """Resolve Resolve embedded assets inside the independent HIT knowledge library."""
     note = knowledge_path(note_path)
@@ -346,7 +391,7 @@ async def read_vault_asset(note_path: str, target: str):
         raise HTTPException(status_code=409, detail=f"More than one library file is named {basename}; include its folder in the embed.")
     raise HTTPException(status_code=404, detail=f"Could not find embedded library file: {cleaned}")
 
-@app.post("/api/vault/asset/{note_path:path}")
+@app.post("/api/vault/asset/{note_path:path}", dependencies=[Depends(require_library_user)])
 async def upload_vault_image(note_path: str, request: Request, filename: str):
     """Save an uploaded image beside its Markdown note in the HIT knowledge library."""
     note = knowledge_path(note_path)
@@ -367,6 +412,7 @@ async def upload_vault_image(note_path: str, request: Request, filename: str):
         counter += 1
     try:
         destination.write_bytes(content)
+        persist_library_file(destination)
     except OSError as error:
         raise HTTPException(status_code=500, detail="Could not save the image into the HIT knowledge library.") from error
     return {"name": destination.name, "path": destination.relative_to(KNOWLEDGE_ROOT).as_posix()}
@@ -462,7 +508,7 @@ async def gemini_pathway(prompt: str):
             sources.append({"title": web.get("title") or web["uri"], "url": web["uri"]})
     return result, list({source["url"]: source for source in sources}.values())
 
-@app.post("/api/tutor/pathway")
+@app.post("/api/tutor/pathway", dependencies=[Depends(require_library_user)])
 async def tutor_pathway(request: PathwayRequest):
     """Arrange a learner's next topics and connect them to library notes and projects."""
     topic = request.topic.strip()
@@ -538,7 +584,7 @@ async def tutor_pathway(request: PathwayRequest):
         "web_researched": live_search_available,
     }
 
-@app.post("/api/tutor/research")
+@app.post("/api/tutor/research", dependencies=[Depends(require_library_user)])
 async def tutor_research(request: TutorRequest):
     topic = request.topic.strip()
     if not topic:

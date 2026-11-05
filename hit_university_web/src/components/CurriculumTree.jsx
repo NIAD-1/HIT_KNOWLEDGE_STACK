@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown, ChevronRight, File, FileText, Folder, Loader2 } from 'lucide-react';
+import { API, apiFetch } from '../lib/api';
 
-const API = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.BASE_URL.replace(/\/$/, ''));
 const hasHostedApi = import.meta.env.DEV || Boolean(import.meta.env.VITE_API_URL);
 
 function FolderBranch({ folder, depth = 0, initiallyOpen = false }) {
@@ -16,7 +16,7 @@ function FolderBranch({ folder, depth = 0, initiallyOpen = false }) {
     if (listing) return;
     setLoading(true); setError('');
     try {
-      const response = await fetch(`${API}/api/vault/browse?path=${encodeURIComponent(folder.path)}`);
+      const response = await apiFetch(`${API}/api/vault/browse?path=${encodeURIComponent(folder.path)}`);
       const data = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(data.detail || 'Could not load this curriculum folder.');
       setListing(data);

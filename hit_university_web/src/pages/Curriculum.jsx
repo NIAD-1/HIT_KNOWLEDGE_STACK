@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight, BookOpen, FileText, Folder, GraduationCap, Loader2, Search } from 'lucide-react';
 import { otherSchools, pilotSchool } from '../data/pilotSchool';
+import { API, apiFetch } from '../lib/api';
 
-const API = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.BASE_URL.replace(/\/$/, ''));
 const prettify = (name) => name.replace(/^\d+[_\s-]*/, '').replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim() || name;
 const hasHostedApi = import.meta.env.DEV || Boolean(import.meta.env.VITE_API_URL);
 const bundledSchools = [
@@ -21,7 +21,7 @@ export default function Curriculum() {
   const [error, setError] = useState('');
   useEffect(() => {
     if (!hasHostedApi) { setFolders(bundledSchools); setLoading(false); return; }
-    fetch(`${API}/api/vault/browse`)
+    apiFetch(`${API}/api/vault/browse`)
       .then(async response => { const data = await response.json().catch(() => ({})); if (!response.ok) throw new Error(data.detail || 'The hosted HIT library service is unavailable.'); setFolders(data.folders || []); })
       .catch(e => setError(e.message))
       .finally(() => setLoading(false));
@@ -36,7 +36,7 @@ export default function Curriculum() {
     }
     setSearching(true); setError('');
     try {
-      const response = await fetch(`${API}/api/vault/search?q=${encodeURIComponent(query)}&limit=80`);
+      const response = await apiFetch(`${API}/api/vault/search?q=${encodeURIComponent(query)}&limit=80`);
       const data = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(data.detail || 'Could not search the HIT library.');
       setNoteResults(data.results || []); setHasSearched(true);
