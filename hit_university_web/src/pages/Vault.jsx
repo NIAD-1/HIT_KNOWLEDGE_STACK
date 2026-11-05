@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { ArrowLeft, ArrowUpRight, Check, ChevronRight, Download, File, FileText, Folder, FolderOpen, Home, ImagePlus, Link2, Loader2, Pencil, Plus, Save, Search, Upload, X } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Check, ChevronDown, ChevronRight, Download, File, FileText, Folder, FolderOpen, Home, ImagePlus, Link2, Loader2, Pencil, Plus, Save, Search, Upload, X } from 'lucide-react';
 import { API, apiFetch } from '../lib/api';
 const ignoredApiFiles = new Set(['.env', '.env.local', '.env.production', '.ds_store']);
 const encodePath = (path) => path.split('/').map(encodeURIComponent).join('/');
@@ -28,9 +28,63 @@ function AuthenticatedMedia({ src, type = 'img', ...props }) {
   return <img src={url} {...props}/>;
 }
 
+function LibraryFileRow({ file, depth = 0, selected, onSelect }) {
+  return <button type="button" className={`vault-file-row ${selected ? 'selected' : ''}`} style={{ paddingLeft: `${22 + depth * 16}px` }} onClick={() => onSelect(file)}>
+    {file.extension === '.md' ? <FileText size={15}/> : <File size={15}/>}<span>{file.name}</span><small>{file.extension || 'file'}</small>
+  </button>;
+}
+
+function LibraryFolderRow({ folder, depth = 0, selectedPath, onSelectFile, onToggleFolder, refreshKey }) {
+  const [expanded, setExpanded] = useState(false);
+  const [listing, setListing] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  async function loadFolder() {
+    setLoading(true); setError('');
+    try {
+      const response = await apiFetch(`${API}/api/vault/browse?path=${encodeURIComponent(folder.path)}`);
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.detail || 'Could not load this folder.');
+      setListing(data);
+    } catch (e) { setError(e.message); }
+    finally { setLoading(false); }
+  }
+
+  async function toggle() {
+    const willOpen = !expanded;
+    setExpanded(willOpen);
+    onToggleFolder(folder.path, willOpen);
+    if (!willOpen || listing) return;
+    await loadFolder();
+  }
+
+  useEffect(() => { setExpanded(false); setListing(null); setError(''); }, [refreshKey]);
+  useEffect(() => {
+    if (selectedPath?.startsWith(`${folder.path}/`) && !expanded && !listing && !loading) {
+      setExpanded(true);
+      onToggleFolder(folder.path, true);
+      void loadFolder();
+    }
+  }, [selectedPath]);
+
+  return <div className="vault-tree-folder">
+    <button type="button" className="vault-folder-row" style={{ paddingLeft: `${9 + depth * 16}px` }} onClick={toggle} aria-expanded={expanded}>
+      {expanded ? <ChevronDown size={14}/> : <ChevronRight size={14}/>}<Folder size={16}/><span>{folder.name}</span>{loading && <Loader2 size={13} className="spin"/>}
+    </button>
+    {expanded && <div className="vault-tree-children">
+      {error && <p className="vault-tree-error">{error}</p>}
+      {listing?.folders.map(child => <LibraryFolderRow key={child.path} folder={child} depth={depth + 1} selectedPath={selectedPath} onSelectFile={onSelectFile} onToggleFolder={onToggleFolder} refreshKey={refreshKey}/>)}
+      {listing?.files.filter(file => !ignoredApiFiles.has(file.name.toLowerCase())).map(file => <LibraryFileRow key={file.path} file={file} depth={depth + 1} selected={selectedPath === file.path} onSelect={onSelectFile}/>)}
+      {listing && !listing.folders.length && !listing.files.some(file => !ignoredApiFiles.has(file.name.toLowerCase())) && <p className="vault-empty">This folder is empty.</p>}
+    </div>}
+  </div>;
+}
+
 function Vault() {
   const [currentPath, setCurrentPath] = useState('');
   const [listing, setListing] = useState(null);
+  const [treeRefresh, setTreeRefresh] = useState(0);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState('');
   const [searchResults, setSearchResults] = useState(null);
@@ -70,11 +124,14 @@ function Vault() {
   }, []);
 
   async function browse(path) {
-    setLoading(true); setError(''); setSelectedFile(null); setOpenedNote(null); setEditingMarkdown(false); setSearchResults(null); setQuery('');
+    setError(''); setSelectedFile(null); setOpenedNote(null); setEditingMarkdown(false); setSearchResults(null); setQuery('');
+    setCurrentPath(path);
+    if (listing) return;
+    setLoading(true);
     try {
-      const response = await apiFetch(`${API}/api/vault/browse?path=${encodeURIComponent(path)}`);
+      const response = await apiFetch(`${API}/api/vault/browse?path=`);
       const data = await response.json(); if (!response.ok) throw new Error(data.detail || 'Could not open this library folder.');
-      setListing(data); setCurrentPath(path);
+      setListing(data);
     } catch (e) { setError(e.message); }
     finally { setLoading(false); }
   }
@@ -102,6 +159,9 @@ function Vault() {
   }
 
   async function openFile(file) {
+    const parentPath = file.path.includes('/') ? file.path.slice(0, file.path.lastIndexOf('/')) : '';
+    setCurrentPath(parentPath);
+    setSearchResults(null);
     setSelectedFile(file); setOpenedNote(null); setEditingMarkdown(false); setMarkdownSaveStatus(''); setError('');
     if (!noteExtensions.has(file.extension)) return;
     setNoteLoading(true);
@@ -205,12 +265,18 @@ function Vault() {
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.detail || 'Could not create a note.');
-      await browse(currentPath);
+      setTreeRefresh(value => value + 1);
+      if (!listing) await browse('');
       setSelectedFile({ name: data.name, path: data.path, extension: '.md' });
       setOpenedNote(data); setMarkdownDraft(data.text); setEditingMarkdown(true);
       setShowNewNote(false); setNewNoteTitle('');
     } catch (e) { setError(e.message); }
     finally { setCreatingNote(false); }
+  }
+
+  function toggleFolder(path, expanded) {
+    if (expanded) setCurrentPath(path);
+    else if (currentPath === path || currentPath.startsWith(`${path}/`)) setCurrentPath(path.includes('/') ? path.slice(0, path.lastIndexOf('/')) : '');
   }
 
   useEffect(() => {
@@ -270,7 +336,7 @@ function Vault() {
       {error && <div className="vault-error" role="alert">{error}</div>}
       <div className="vault-layout">
         <aside className="vault-browser"><div className="vault-browser-title"><b>{searchResults ? 'Search results' : (listing?.name || 'Library folders')}</b>{searchResults && <button onClick={() => setSearchResults(null)} aria-label="Clear search"><X size={15}/></button>}</div>
-          {loading || searching ? <div className="vault-loading"><Loader2 className="spin" size={17}/> Loading…</div> : searchResults ? <div className="vault-entry-list">{searchResults.results.length ? searchResults.results.map((result, index) => <button key={`${result.path}-${index}`} className="vault-search-result" onClick={() => openFile({ ...result, extension: '.md' })}><FileText size={16}/><span><b>{result.name}</b><small>{result.path}</small><small>{result.excerpt}</small></span></button>) : <p className="vault-empty">No matching notes found.</p>}{searchResults.limited && <p className="vault-search-limit">Showing the first 80 matches.</p>}</div> : <div className="vault-entry-list">{listing?.folders.map(folder => <button className="vault-folder-row" key={folder.path} onClick={() => browse(folder.path)}><Folder size={16}/><span>{folder.name}</span><ChevronRight size={14}/></button>)}{listing?.files.filter(file => !ignoredApiFiles.has(file.name.toLowerCase())).map(file => <button className={`vault-file-row ${selectedFile?.path === file.path ? 'selected' : ''}`} key={file.path} onClick={() => openFile(file)}>{file.extension === '.md' ? <FileText size={15}/> : <File size={15}/>}<span>{file.name}</span><small>{file.extension || 'file'}</small></button>)}{!listing?.folders.length && !listing?.files.length && <p className="vault-empty">This folder is empty.</p>}</div>}
+          {loading || searching ? <div className="vault-loading"><Loader2 className="spin" size={17}/> Loading…</div> : searchResults ? <div className="vault-entry-list">{searchResults.results.length ? searchResults.results.map((result, index) => <button key={`${result.path}-${index}`} className="vault-search-result" onClick={() => openFile({ ...result, extension: '.md' })}><FileText size={16}/><span><b>{result.name}</b><small>{result.path}</small><small>{result.excerpt}</small></span></button>) : <p className="vault-empty">No matching notes found.</p>}{searchResults.limited && <p className="vault-search-limit">Showing the first 80 matches.</p>}</div> : <div className="vault-entry-list vault-tree">{listing?.folders.map(folder => <LibraryFolderRow key={folder.path} folder={folder} selectedPath={selectedFile?.path} onSelectFile={openFile} onToggleFolder={toggleFolder} refreshKey={treeRefresh}/>)}{listing?.files.filter(file => !ignoredApiFiles.has(file.name.toLowerCase())).map(file => <LibraryFileRow key={file.path} file={file} selected={selectedFile?.path === file.path} onSelect={openFile}/>)}{listing && !listing.folders.length && !listing.files.some(file => !ignoredApiFiles.has(file.name.toLowerCase())) && <p className="vault-empty">This folder is empty.</p>}</div>}
         </aside>
         <section className="vault-preview">
           {!selectedFile && <div className="vault-welcome"><span><FolderOpen size={24}/></span><h2>Everything in one place</h2><p>Choose a folder to explore the library, or search it for a topic.</p><small>Hidden app settings and build files stay out of the learning library.</small></div>}
