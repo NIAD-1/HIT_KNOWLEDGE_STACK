@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hit-university-shell-v2';
+const CACHE_NAME = 'hit-university-shell-v3';
 const APP_BASE = new URL('./', self.registration.scope).href;
 const APP_SHELL = [APP_BASE, new URL('manifest.webmanifest', APP_BASE).href, new URL('icons/app-icon.svg', APP_BASE).href, new URL('icons/apple-touch-icon.png', APP_BASE).href];
 
@@ -9,7 +9,7 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))))
+    caches.keys().then((keys) => Promise.all(keys.filter((key) => key.startsWith('hit-university-shell-') && key !== CACHE_NAME).map((key) => caches.delete(key))))
   );
   self.clients.claim();
 });

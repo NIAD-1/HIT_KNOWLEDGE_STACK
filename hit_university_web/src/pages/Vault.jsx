@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { ArrowLeft, ArrowUpRight, Check, ChevronDown, ChevronRight, Download, File, FileText, Folder, FolderOpen, Home, ImagePlus, Link2, Loader2, Pencil, Plus, Save, Search, Upload, X } from 'lucide-react';
-import { API, apiFetch } from '../lib/api';
+import { API, apiFetch, fetchLibraryFolder, prefetchLibraryFolders } from '../lib/api';
 const ignoredApiFiles = new Set(['.env', '.env.local', '.env.production', '.ds_store']);
 const encodePath = (path) => path.split('/').map(encodeURIComponent).join('/');
 const noteExtensions = new Set(['.md', '.txt', '.csv', '.json', '.yaml', '.yml']);
@@ -43,10 +43,11 @@ function LibraryFolderRow({ folder, depth = 0, selectedPath, onSelectFile, onTog
   async function loadFolder() {
     setLoading(true); setError('');
     try {
-      const response = await apiFetch(`${API}/api/vault/browse?path=${encodeURIComponent(folder.path)}`);
+      const response = await fetchLibraryFolder(folder.path);
       const data = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(data.detail || 'Could not load this folder.');
       setListing(data);
+      void prefetchLibraryFolders(data.folders);
     } catch (e) { setError(e.message); }
     finally { setLoading(false); }
   }
@@ -73,6 +74,7 @@ function LibraryFolderRow({ folder, depth = 0, selectedPath, onSelectFile, onTog
       {expanded ? <ChevronDown size={14}/> : <ChevronRight size={14}/>}<Folder size={16}/><span>{folder.name}</span>{loading && <Loader2 size={13} className="spin"/>}
     </button>
     {expanded && <div className="vault-tree-children">
+      {loading && !listing && <div className="vault-tree-loading"><Loader2 size={13} className="spin"/> Loading folder…</div>}
       {error && <p className="vault-tree-error">{error}</p>}
       {listing?.folders.map(child => <LibraryFolderRow key={child.path} folder={child} depth={depth + 1} selectedPath={selectedPath} onSelectFile={onSelectFile} onToggleFolder={onToggleFolder} refreshKey={refreshKey}/>)}
       {listing?.files.filter(file => !ignoredApiFiles.has(file.name.toLowerCase())).map(file => <LibraryFileRow key={file.path} file={file} depth={depth + 1} selected={selectedPath === file.path} onSelect={onSelectFile}/>)}
@@ -111,8 +113,16 @@ function Vault() {
   const [learningNotePath, setLearningNotePath] = useState('');
   const [learningNoteStatus, setLearningNoteStatus] = useState('');
   const [error, setError] = useState('');
+  const [online, setOnline] = useState(() => navigator.onLine);
 
   useEffect(() => () => clearTimeout(markdownAutoSaveTimer.current), []);
+
+  useEffect(() => {
+    const updateOnline = () => setOnline(navigator.onLine);
+    window.addEventListener('online', updateOnline);
+    window.addEventListener('offline', updateOnline);
+    return () => { window.removeEventListener('online', updateOnline); window.removeEventListener('offline', updateOnline); };
+  }, []);
 
   useEffect(() => {
     browse('');
@@ -132,6 +142,7 @@ function Vault() {
       const response = await apiFetch(`${API}/api/vault/browse?path=`);
       const data = await response.json(); if (!response.ok) throw new Error(data.detail || 'Could not open this library folder.');
       setListing(data);
+      void prefetchLibraryFolders(data.folders);
     } catch (e) { setError(e.message); }
     finally { setLoading(false); }
   }
@@ -334,6 +345,7 @@ function Vault() {
       <div className="vault-breadcrumb"><button onClick={() => browse('')} aria-label="Library root"><Home size={14}/> Library</button>{crumbs.map((crumb, index) => <span key={`${crumb}-${index}`}><ChevronRight size={13}/><button onClick={() => browse(crumbs.slice(0, index + 1).join('/'))}>{crumb}</button></span>)}</div>
       <p className="vault-footnote"><Check size={13}/> Notes and attachments are stored in HIT School’s own knowledge library.</p>
       {error && <div className="vault-error" role="alert">{error}</div>}
+      <p className={`vault-offline-status ${online ? '' : 'is-offline'}`} aria-live="polite">{online ? 'Opened folders and files are saved on this device for offline reading.' : 'Offline mode · showing library items saved on this device.'}</p>
       <div className="vault-layout">
         <aside className="vault-browser"><div className="vault-browser-title"><b>{searchResults ? 'Search results' : (listing?.name || 'Library folders')}</b>{searchResults && <button onClick={() => setSearchResults(null)} aria-label="Clear search"><X size={15}/></button>}</div>
           {loading || searching ? <div className="vault-loading"><Loader2 className="spin" size={17}/> Loading…</div> : searchResults ? <div className="vault-entry-list">{searchResults.results.length ? searchResults.results.map((result, index) => <button key={`${result.path}-${index}`} className="vault-search-result" onClick={() => openFile({ ...result, extension: '.md' })}><FileText size={16}/><span><b>{result.name}</b><small>{result.path}</small><small>{result.excerpt}</small></span></button>) : <p className="vault-empty">No matching notes found.</p>}{searchResults.limited && <p className="vault-search-limit">Showing the first 80 matches.</p>}</div> : <div className="vault-entry-list vault-tree">{listing?.folders.map(folder => <LibraryFolderRow key={folder.path} folder={folder} selectedPath={selectedFile?.path} onSelectFile={openFile} onToggleFolder={toggleFolder} refreshKey={treeRefresh}/>)}{listing?.files.filter(file => !ignoredApiFiles.has(file.name.toLowerCase())).map(file => <LibraryFileRow key={file.path} file={file} selected={selectedFile?.path === file.path} onSelect={openFile}/>)}{listing && !listing.folders.length && !listing.files.some(file => !ignoredApiFiles.has(file.name.toLowerCase())) && <p className="vault-empty">This folder is empty.</p>}</div>}
