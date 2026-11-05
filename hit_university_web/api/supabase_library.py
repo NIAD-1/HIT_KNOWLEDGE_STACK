@@ -45,6 +45,15 @@ def _get_object(client: httpx.Client, base_url: str, bucket: str, headers: dict,
     response = client.get(_object_url(base_url, bucket, key), headers=headers)
     if response.status_code == 404:
         return None
+    if response.status_code == 400:
+        try:
+            error = response.json()
+        except ValueError:
+            error = {}
+        message = " ".join(str(error.get(field, "")) for field in ("error", "message", "code")).casefold()
+        if "object not found" in message or "no such key" in message:
+            return None
+        raise RuntimeError(f"Supabase Storage rejected the request ({response.status_code}): {message or response.text[:400]}")
     response.raise_for_status()
     return response.content
 
