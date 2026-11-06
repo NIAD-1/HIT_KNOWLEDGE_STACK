@@ -10,6 +10,7 @@ import Listen from './pages/Listen';
 import Tutor from './pages/Tutor';
 import Vault from './pages/Vault';
 import Curriculum from './pages/Curriculum';
+import SimulationLab from './pages/SimulationLab';
 import { AudioPlayerProvider } from './components/AudioPlayer';
 import AuthGate from './components/AuthGate';
 
@@ -31,6 +32,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/school/:schoolId" element={<School />} />
+        <Route path="/school/:schoolId/simulation/:simulationId" element={<SimulationLab />} />
         <Route path="/curriculum" element={<Curriculum />} />
         <Route path="/listen" element={<Listen />} />
         <Route path="/tutor" element={<Tutor />} />
